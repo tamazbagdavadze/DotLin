@@ -32,8 +32,8 @@
 
   function newDot(){
   		return {
-        x : rand(1, width),
-        y : rand(1,height)
+        'x' : rand(1, width),
+        'y' : rand(1, height)
       };
   }
 
