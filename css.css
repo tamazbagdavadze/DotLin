@@ -12,3 +12,23 @@ html, body, canvas{
 canvas{
   border: 1px dotted red;
 }
+
+#controls{
+  border-radius: 5%;
+  padding: 5px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100px;
+  background: rgba(255, 0, 0, 0.5);
+}
+
+#controls input{
+  width: 50px;
+}
+
+#controls label{
+  display: block;
+  margin: 3px;
+}

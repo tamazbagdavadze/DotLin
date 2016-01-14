@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <title>DotLin</title>
@@ -5,7 +6,30 @@
 </head>
 <body>
 
+<div id="controls">
+
+ <label>
+   <input type="number" id="dotsNum" step="5" min="1" max="2000" value="200" />
+   <span>dots number</span>
+ </label>
+
+ <label>
+   <input type="number" id="dotSize" step="1" min="1" max="100" value="3" />
+   <span>dot size</span>
+ </label>
+
+ <label>
+   <input type="number" id="lineLength" step="5" min="1" max="1000" value="80" />
+   <span>line length</span>
+ </label>
+
+</div>
+
 <canvas id='c' width='500' height='500'></canvas>
+
+<div id="copyright">
+  <span> &copy; 2015 Copyright Tamaz Bagdavadze All Rights Reserved <span>
+</div>
 
 <script type="text/javascript" src="js.js"></script>
 </body>
