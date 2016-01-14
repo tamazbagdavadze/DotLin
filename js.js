@@ -61,7 +61,9 @@ var DotLin = (function () {
     }
 
     function drawDot(dot) {
-        ctx.fillRect(dot.x, dot.y, dotSize, dotSize);
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, dotSize, 0, Math.PI * 2);
+        ctx.fill();
     }
 
     function moveDots() {
