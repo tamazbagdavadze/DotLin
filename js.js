@@ -1,4 +1,6 @@
-(function () {
+// tamaz bagdavadze 1/13/2016
+
+var DotLin = (function () {
     'use strict';
 
     var canvas = document.getElementById('c');
@@ -7,9 +9,14 @@
     var width = 500;
     var height = 500;
     var dotsNum = 200;
-    var dots = [];
+    var dots = null;
 
-    var dotWidth = 3;
+    var lineLength = 80;
+    var dotSize = 3;
+
+    var dotNumDomEl = null;
+    var lineLengthDomEl = null;
+    var dotSizeDomEl = null;
 
     function resize() {
         width = parseInt(getComputedStyle(document.body).width.slice(0, -2), 10);
@@ -17,17 +24,23 @@
 
         canvas.setAttribute('height', height);
         canvas.setAttribute('width', width);
+
+        restart();
     }
 
     function init() {
         window.addEventListener('resize', resize);
-
         resize();
+    }
 
-        for (let i = 0; i < dotsNum; i++) {
-            dots.push(newDot());
-        }
-        step();
+    function restart() {
+      dots = [];
+
+      for (let i = 0; i < dotsNum; i++) {
+          dots.push(newDot());
+      }
+
+      step();
     }
 
     function newDot() {
@@ -46,7 +59,7 @@
     }
 
     function drawDot(dot) {
-        ctx.fillRect(dot.x, dot.y, dotWidth, dotWidth);
+        ctx.fillRect(dot.x, dot.y, dotSize, dotSize);
     }
 
     function moveDots() {
@@ -67,7 +80,7 @@
     function drawLines() {
         for (let i = 0; i < dotsNum; i++) {
             for (let j = i + 1; j < dotsNum; j++) {
-                if (distance(dots[i], dots[j]) < 50) {
+                if (distance(dots[i], dots[j]) < lineLength) {
                     ctx.beginPath();
                     ctx.moveTo(dots[i].x, dots[i].y);
                     ctx.lineTo(dots[j].x, dots[j].y);
@@ -96,8 +109,44 @@
         requestAnimationFrame(render);
     }
 
-    init();
-    render();
-    setInterval(step, 1000);
+    return {
+      'start' : function(){
+        init();
+        render();
+        setInterval(step, 1000);
+      },
+      'setDotNumDomEl' : function(el) {
+        dotNumDomEl = el;
 
+        dotNumDomEl.addEventListener('input',(e)=>{
+          var el = e.srcElement || e.target;
+          dotsNum = el.value;
+          restart();
+        });
+
+      },
+      'setDotSizeDomEl' : function(el) {
+        dotSizeDomEl = el;
+
+        dotSizeDomEl.addEventListener('input',(e)=>{
+          var el = e.srcElement || e.target;
+          dotSize = el.value;
+          restart();
+        });
+      },
+      'setLineLengthDomEl' : function(el) {
+        lineLengthDomEl = el;
+
+        lineLengthDomEl.addEventListener('input',(e)=>{
+          var el = e.srcElement || e.target;
+          lineLength = el.value;
+          restart();
+        });
+      }
+    };
 })();
+
+DotLin.setDotNumDomEl(document.getElementById('dotsNum'));
+DotLin.setDotSizeDomEl(document.getElementById('dotSize'));
+DotLin.setLineLengthDomEl(document.getElementById('lineLength'));
+DotLin.start();
