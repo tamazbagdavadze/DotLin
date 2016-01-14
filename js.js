@@ -31,6 +31,8 @@ var DotLin = (function () {
     function init() {
         window.addEventListener('resize', resize);
         resize();
+        render();
+        setInterval(step, 1000);
     }
 
     function restart() {
@@ -112,8 +114,6 @@ var DotLin = (function () {
     return {
       'start' : function(){
         init();
-        render();
-        setInterval(step, 1000);
       },
       'setDotNumDomEl' : function(el) {
         dotNumDomEl = el;
