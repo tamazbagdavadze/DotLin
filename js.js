@@ -42,7 +42,7 @@ var DotLin = (function () {
           dots.push(newDot());
       }
 
-      step();
+      step(true);
     }
 
     function newDot() {
@@ -94,11 +94,21 @@ var DotLin = (function () {
         }
     }
 
-    function step() {
+    function step(now) {
+      if(now){
         for (let i = 0; i < dotsNum; i++) {
-            dots[i].deltaX = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
-            dots[i].deltaY = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
+              dots[i].deltaX = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
+              dots[i].deltaY = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
         }
+      }
+      else{
+        for (let i = 0; i < dotsNum; i++) {
+            setTimeout(function() {
+              dots[i].deltaX = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
+              dots[i].deltaY = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
+          }, Math.random() * 300);
+        }
+      }
     }
 
     function clear() {
