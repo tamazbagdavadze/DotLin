@@ -76,6 +76,10 @@ var DotLin = (function() {
         dot.x += dot.deltaX;
         dot.y += dot.deltaY;
     }
+    
+    function randomDirection(){
+        return [-1, 1][Math.round((Math.random() * 100)) % 2];
+    }
 
     function distance(dot1, dot2) {
         return Math.sqrt(Math.pow(dot1.x - dot2.x, 2) + Math.pow(dot1.y - dot2.y, 2));
@@ -96,18 +100,18 @@ var DotLin = (function() {
 
     function stepNow() {
         dots.forEach(dot => {
-            dot.deltaX = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
-            dot.deltaY = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
-        })
+            dot.deltaX = Math.random() * randomDirection();
+            dot.deltaY = Math.random() * randomDirection();
+        });
     }
 
     function step() {
          dots.forEach(dot => {
             setTimeout(function() {
-                dot.deltaX = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
-                dot.deltaY = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
+                dot.deltaX = Math.random() * randomDirection();
+                dot.deltaY = Math.random() * randomDirection();
             }, Math.random() * 300);
-        })
+        });
     }
 
     function clear() {
