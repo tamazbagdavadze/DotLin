@@ -1,12 +1,12 @@
 // tamaz bagdavadze 1/13/2016
 
 (function(params) {
-    window.range = function (n) {
-        return Array.apply(null, Array(n)).map(function (_, i) {return i;});
+    window.range = function(n) {
+        return Array.apply(null, Array(n)).map(function(_, i) { return i; });
     };
 })();
 
-var DotLin = (function () {
+var DotLin = (function() {
     'use strict';
 
     var canvas = document.getElementById('c');
@@ -42,9 +42,9 @@ var DotLin = (function () {
     }
 
     function restart() {
-      dots = [];
-      dots = range(dotsNum).map(_ => newDot());
-      step(true);
+        dots = [];
+        dots = range(dotsNum).map(_ => newDot());
+        stepNow();
     }
 
     function newDot() {
@@ -94,21 +94,20 @@ var DotLin = (function () {
         }
     }
 
-    function step(now) {
-      if(now){
-        for (let i = 0; i < dotsNum; i++) {
-              dots[i].deltaX = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
-              dots[i].deltaY = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
-        }
-      }
-      else{
-        for (let i = 0; i < dotsNum; i++) {
+    function stepNow() {
+        dots.forEach(dot => {
+            dot.deltaX = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
+            dot.deltaY = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
+        })
+    }
+
+    function step() {
+         dots.forEach(dot => {
             setTimeout(function() {
-              dots[i].deltaX = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
-              dots[i].deltaY = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
-          }, Math.random() * 300);
-        }
-      }
+                dot.deltaX = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
+                dot.deltaY = Math.random() * [-1, 1][Math.round((Math.random() * 100)) % 2];
+            }, Math.random() * 300);
+        })
     }
 
     function clear() {
@@ -124,36 +123,36 @@ var DotLin = (function () {
     }
 
     return {
-      'start' : function(){
-        init();
-      },
-      'setDotNumDomEl' : function(el) {
-        dotNumDomEl = el;
+        'start': function() {
+            init();
+        },
+        'setDotNumDomEl': function(el) {
+            dotNumDomEl = el;
 
-        dotNumDomEl.addEventListener('input',(e)=>{
-          var el = e.srcElement || e.target;
-          dotsNum = parseInt(el.value, 10);
-          restart();
-        });
-      },
-      'setDotSizeDomEl' : function(el) {
-        dotSizeDomEl = el;
+            dotNumDomEl.addEventListener('input', (e) => {
+                var el = e.srcElement || e.target;
+                dotsNum = parseInt(el.value, 10);
+                restart();
+            });
+        },
+        'setDotSizeDomEl': function(el) {
+            dotSizeDomEl = el;
 
-        dotSizeDomEl.addEventListener('input',(e)=>{
-          var el = e.srcElement || e.target;
-          dotSize = parseInt(el.value, 10);
-          restart();
-        });
-      },
-      'setLineLengthDomEl' : function(el) {
-        lineLengthDomEl = el;
+            dotSizeDomEl.addEventListener('input', (e) => {
+                var el = e.srcElement || e.target;
+                dotSize = parseInt(el.value, 10);
+                restart();
+            });
+        },
+        'setLineLengthDomEl': function(el) {
+            lineLengthDomEl = el;
 
-        lineLengthDomEl.addEventListener('input',(e)=>{
-          var el = e.srcElement || e.target;
-          lineLength = parseInt(el.value, 10);
-          restart();
-        });
-      }
+            lineLengthDomEl.addEventListener('input', (e) => {
+                var el = e.srcElement || e.target;
+                lineLength = parseInt(el.value, 10);
+                restart();
+            });
+        }
     };
 })();
 
