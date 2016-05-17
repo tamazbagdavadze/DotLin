@@ -1,5 +1,11 @@
 // tamaz bagdavadze 1/13/2016
 
+(function(params) {
+    window.range = function (n) {
+        return Array.apply(null, Array(n)).map(function (_, i) {return i;});
+    };
+})();
+
 var DotLin = (function () {
     'use strict';
 
@@ -37,11 +43,7 @@ var DotLin = (function () {
 
     function restart() {
       dots = [];
-
-      for (let i = 0; i < dotsNum; i++) {
-          dots.push(newDot());
-      }
-
+      dots = range(dotsNum).map(_ => newDot());
       step(true);
     }
 
@@ -67,9 +69,7 @@ var DotLin = (function () {
     }
 
     function moveDots() {
-        for (let dot of dots) {
-            moveDot(dot);
-        }
+        dots.forEach(moveDot);
     }
 
     function moveDot(dot) {
@@ -132,17 +132,16 @@ var DotLin = (function () {
 
         dotNumDomEl.addEventListener('input',(e)=>{
           var el = e.srcElement || e.target;
-          dotsNum = el.value;
+          dotsNum = parseInt(el.value, 10);
           restart();
         });
-
       },
       'setDotSizeDomEl' : function(el) {
         dotSizeDomEl = el;
 
         dotSizeDomEl.addEventListener('input',(e)=>{
           var el = e.srcElement || e.target;
-          dotSize = el.value;
+          dotSize = parseInt(el.value, 10);
           restart();
         });
       },
@@ -151,7 +150,7 @@ var DotLin = (function () {
 
         lineLengthDomEl.addEventListener('input',(e)=>{
           var el = e.srcElement || e.target;
-          lineLength = el.value;
+          lineLength = parseInt(el.value, 10);
           restart();
         });
       }
